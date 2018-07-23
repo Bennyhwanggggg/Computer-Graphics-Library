@@ -38,7 +38,7 @@ public class Point2DBuffer {
     public Point2DBuffer(List<Point2D> points) {
         this(points.size());
         for (int i = 0; i < capacity; i++) {
-            put(i, points.get(i));
+            put(i, points.get(i)); // put points at position i
         }
     }
 
@@ -60,7 +60,7 @@ public class Point2DBuffer {
      * @param x
      * @param y
      */
-    public void put(int index, float x, float y) {
+    public void put(int index, float x, float y) { // put method ensures we are putting it at the right index
         if (index >= 0 && index < capacity) {
             floatBuffer.put(index * 2, x);
             floatBuffer.put(index * 2 + 1, y);
