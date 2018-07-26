@@ -30,14 +30,17 @@ public class PolygonDrawing extends Application2D {
     private LineStrip2D currentStrip;
     
     private Point2D currentPoint;
-    
+
     private List<Polygon2D> finishedStrips;
 
+
+    private List<Polygon2D> finishedPolygons;
+
     public PolygonDrawing() {
-        super("Line Drawing", 600, 600);
+        super("Polygon Drawing", 600, 600);
         currentStrip = new LineStrip2D();
         currentPoint = new Point2D(0,0);
-        finishedStrips = new ArrayList<Polygon2D>();
+        finishedPolygons = new ArrayList<Polygon2D>();
     }
 
     public static void main(String[] args) {
@@ -54,9 +57,10 @@ public class PolygonDrawing extends Application2D {
                 if (ev.getButton() == MouseEvent.BUTTON1)
                     currentStrip.add(currentPoint);
                 else if (ev.getButton() == MouseEvent.BUTTON3) {
-                	if (currentStrip.getPoints().size() < 3) return;
-                	Polygon2D p = new Polygon2D(currentStrip.getPoints());
-                    finishedStrips.add(p);
+
+                    if (currentStrip.getPoints().size() < 3) return;
+                    Polygon2D poly = new Polygon2D(currentStrip.getPoints());
+                    finishedPolygons.add(poly);
                     currentStrip = new LineStrip2D();
                 }
             }
@@ -75,8 +79,9 @@ public class PolygonDrawing extends Application2D {
         currentStrip.draw(gl);
         currentPoint.draw(gl);
         
-        for (Polygon2D poly : finishedStrips) 
-        	poly.draw(gl);
+        for (Polygon2D poly : finishedPolygons) 
+            poly.draw(gl);
+
         
         if (!currentStrip.getPoints().isEmpty()) {
             Line2D incomplete = new Line2D(currentPoint, currentStrip.getLast());
