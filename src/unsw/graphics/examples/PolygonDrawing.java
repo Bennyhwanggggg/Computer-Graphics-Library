@@ -31,9 +31,6 @@ public class PolygonDrawing extends Application2D {
     
     private Point2D currentPoint;
 
-    private List<Polygon2D> finishedStrips;
-
-
     private List<Polygon2D> finishedPolygons;
 
     public PolygonDrawing() {
