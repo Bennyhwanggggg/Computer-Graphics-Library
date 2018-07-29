@@ -44,7 +44,6 @@ public class TwoTrianglesDrawing extends Application2D{
     	
     	Triangle2D topTriangle = new Triangle2D(currentStrip.getPoints());
     	topTriangle.draw(gl);
-//        triangles.add(topTriangle);
         
         // reset currentStrip
         currentStrip = new LineStrip2D();
@@ -58,10 +57,7 @@ public class TwoTrianglesDrawing extends Application2D{
     	
     	Triangle2D bottomTriangle = new Triangle2D(currentStrip.getPoints());
     	bottomTriangle.draw(gl);
-//    	triangles.add(bottomTriangle);
-        
-//        for (Triangle2D tri : triangles) 
-//            tri.draw(gl);
+
         
     }
 }
