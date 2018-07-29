@@ -3,6 +3,8 @@
  */
 package unsw.graphics;
 
+import java.awt.Color;
+
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.glsl.ShaderCode;
 import com.jogamp.opengl.util.glsl.ShaderProgram;
@@ -10,15 +12,31 @@ import com.jogamp.opengl.util.glsl.ShaderProgram;
 /**
  * A shader for use with OpenGL.
  * 
+ * This class is used to load shaders into UNSWgraph. Note that for a shader to 
+ * work in this library, there a number of required variables. In the vertex 
+ * shader there must be:
+ *   - "in vec2 position"
+ *   - "uniform mat3 model_matrix" 
+ *
+ * 
  * @author Robert Clifton-Everest
  *
  */
 public class Shader {
 
+    //Vertex attributes
+    
     /**
      * The vertex position attribute for use with glAttribPointer.
      */
     public static final int POSITION = 0;
+    
+    //Uniform variables
+    
+    /**
+     * The name of the model matrix input variable.
+     */
+    public static final String MODEL_MATRIX = "model_matrix";
 
     private int id;
 
@@ -75,5 +93,50 @@ public class Shader {
      */
     public void destroy(GL3 gl) {
         gl.glDeleteProgram(id);
+    }
+
+    /**
+     * Get the ID OpenGL associates with this shader.
+     * 
+     * @return
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the model matrix of the currently loaded shader.
+     * @param gl
+     * @param mat
+     */
+    public static void setModelMatrix(GL3 gl, Matrix3 mat) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int modelLoc = gl.glGetUniformLocation(ids[0], "model_matrix");
+        gl.glUniformMatrix3fv(modelLoc, 1, false, mat.getValues(), 0);
+    }
+    
+    /**
+     * Sets the view matrix of the currently loaded shader.
+     * @param gl
+     * @param mat
+     */
+    public static void setViewMatrix(GL3 gl, Matrix3 mat) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int viewLoc = gl.glGetUniformLocation(ids[0], "view_matrix");
+        gl.glUniformMatrix3fv(viewLoc, 1, false, mat.getValues(), 0);
+    }
+    
+    /**
+     * Sets the pen color of the currently loaded shader.
+     * @param gl
+     * @param color
+     */
+    public static void setPenColor(GL3 gl, Color color) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int viewLoc = gl.glGetUniformLocation(ids[0], "input_color");
+        gl.glUniform3f(viewLoc, color.getRed(), color.getBlue(), color.getGreen());
     }
 }
