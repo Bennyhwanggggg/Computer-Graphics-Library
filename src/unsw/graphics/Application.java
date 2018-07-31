@@ -54,7 +54,7 @@ public abstract class Application implements GLEventListener {
         this.title = title;
         this.width = width;
         this.height = height;
-        this.background = new Color(1, 1, 1);
+        this.background = new Color(1f, 1f, 1f);
     }
 
     /**
@@ -76,6 +76,7 @@ public abstract class Application implements GLEventListener {
         window = GLWindow.create(glCapabilities);
         window.setTitle(title);
         window.setSize(width, height);
+        window.setResizable(false);
 
         // Turn on debug mode (REALLY USEFUL)
         window.setContextCreationFlags(GLContext.CTX_OPTION_DEBUG);
