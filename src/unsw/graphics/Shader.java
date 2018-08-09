@@ -17,6 +17,7 @@ import com.jogamp.opengl.util.glsl.ShaderProgram;
  * shader there must be:
  *   - "in vec2 position"
  *   - "uniform mat3 model_matrix" 
+ *   - "uniform mat3 view_matrix"
  *
  * 
  * @author Robert Clifton-Everest
@@ -117,6 +118,18 @@ public class Shader {
     }
     
     /**
+     * Sets the model matrix of the currently loaded shader.
+     * @param gl
+     * @param mat
+     */
+    public static void setModelMatrix(GL3 gl, Matrix4 mat) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int modelLoc = gl.glGetUniformLocation(ids[0], "model_matrix");
+        gl.glUniformMatrix4fv(modelLoc, 1, false, mat.getValues(), 0);
+    }
+    
+    /**
      * Sets the view matrix of the currently loaded shader.
      * @param gl
      * @param mat
@@ -126,6 +139,30 @@ public class Shader {
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int viewLoc = gl.glGetUniformLocation(ids[0], "view_matrix");
         gl.glUniformMatrix3fv(viewLoc, 1, false, mat.getValues(), 0);
+    }
+    
+    /**
+     * Sets the view matrix of the currently loaded shader.
+     * @param gl
+     * @param mat
+     */
+    public static void setViewMatrix(GL3 gl, Matrix4 mat) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int viewLoc = gl.glGetUniformLocation(ids[0], "view_matrix");
+        gl.glUniformMatrix4fv(viewLoc, 1, false, mat.getValues(), 0);
+    }
+    
+    /**
+     * Sets the projection matrix of the currently loaded shader.
+     * @param gl
+     * @param mat
+     */
+    public static void setProjMatrix(GL3 gl, Matrix4 mat) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int viewLoc = gl.glGetUniformLocation(ids[0], "proj_matrix");
+        gl.glUniformMatrix4fv(viewLoc, 1, false, mat.getValues(), 0);
     }
     
     /**
