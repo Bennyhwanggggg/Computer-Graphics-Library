@@ -77,12 +77,15 @@ public abstract class Application3D extends Application {
         
         // Turn on the depth buffer
         gl.glEnable(GL.GL_DEPTH_TEST);
+        
+        // Cull back faces
+        gl.glEnable(GL.GL_CULL_FACE);
     }
     
     @Override
     public void reshape(GL3 gl, int width, int height) {
         // The projection matrix is orthographic by default
-        Shader.setProjMatrix(gl, Matrix4.orthographic(-1, 1, -1, 1, 0, 10));
+        Shader.setProjMatrix(gl, Matrix4.orthographic(-1, 1, -1, 1, 1, 10));
     }
 
     @Override
