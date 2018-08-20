@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.jogamp.opengl.util.GLBuffers;
 
-import unsw.graphics.geometry.Point2D;
 import unsw.graphics.geometry.Point3D;
 
 /**
@@ -74,6 +73,14 @@ public class Point3DBuffer {
 
     public Buffer getBuffer() {
         return floatBuffer;
+    }
+
+    public int capacity() {
+        return capacity;
+    }
+
+    public Point3D get(int i) {
+        return new Point3D(floatBuffer.get(i*3), floatBuffer.get(i*3 + 1), floatBuffer.get(i*3 + 2));
     }
 
 }
