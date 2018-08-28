@@ -28,7 +28,7 @@ import unsw.graphics.geometry.TriangleMesh;
  */
 public class ModelViewer extends Application3D {
 
-    private static final boolean USE_LIGHTING = false;
+    private static final boolean USE_LIGHTING = true;
 
     private float rotateY;
 
@@ -48,8 +48,8 @@ public class ModelViewer extends Application3D {
         model.init(gl);
         base.init(gl);
         if (USE_LIGHTING) {
-            Shader shader = new Shader(gl, "shaders/vertex_gouraud.glsl",
-                    "shaders/fragment_gouraud.glsl");
+            Shader shader = new Shader(gl, "shaders/vertex_phong.glsl",
+                    "shaders/fragment_phong.glsl");
             shader.use(gl);
         }
     }
@@ -79,13 +79,13 @@ public class ModelViewer extends Application3D {
 
         // Set the lighting properties
         Shader.setPoint3D(gl, "lightPos", new Point3D(0, 0, 5));
-        Shader.setFloat(gl, "lightIntensity", 1);
-        Shader.setFloat(gl, "ambientIntensity", 0.2f);
+        Shader.setColor(gl, "lightIntensity", Color.WHITE);
+        Shader.setColor(gl, "ambientIntensity", new Color(0.2f, 0.2f, 0.2f));
         
         // Set the material properties
-        Shader.setFloat(gl, "ambientCoeff", 1);
-        Shader.setFloat(gl, "diffuseCoeff", 0.5f);
-        Shader.setFloat(gl, "specularCoeff", 0.8f);
+        Shader.setColor(gl, "ambientCoeff", Color.WHITE);
+        Shader.setColor(gl, "diffuseCoeff", new Color(0.5f, 0.5f, 0.5f));
+        Shader.setColor(gl, "specularCoeff", new Color(0.8f, 0.8f, 0.8f));
         Shader.setFloat(gl, "phongExp", 16f);
 
         // The coordinate frame for both objects
